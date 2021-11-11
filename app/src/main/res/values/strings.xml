@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Scorp Case Study</string>
+
+    <string name="preview_name" translatable="false">Berkay Türkgeldi</string>
+    <string name="preview_id" translatable="false">21</string>
 </resources>

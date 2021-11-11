@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="person"
+            type="com.example.scorpcasestudy.data.local.Person" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/list_item_height">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/defaultImage"
+            android:layout_width="@dimen/image_dimens"
+            android:layout_height="@dimen/image_dimens"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="@dimen/margin_small"
+            android:src="@drawable/ic_person"/>
+
+        <TextView
+            android:id="@+id/personName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="@{person.fullName}"
+            android:textSize="@dimen/subheading"
+            app:layout_constraintTop_toTopOf="@id/defaultImage"
+            app:layout_constraintStart_toEndOf="@id/defaultImage"
+            tools:text="@string/preview_name" />
+
+        <TextView
+            android:id="@+id/personID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-medium"
+            android:text="@{String.valueOf(person.id)}"
+            android:textSize="@dimen/caption"
+            app:layout_constraintBottom_toBottomOf="@id/defaultImage"
+            app:layout_constraintTop_toBottomOf="@id/personName"
+            app:layout_constraintStart_toStartOf="@id/personName"
+            tools:text="@string/preview_id" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
+

@@ -1,4 +1,5 @@
-package com.example.scorpcasestudy
+package com.example.scorpcasestudy.data.local
+
 import android.os.Handler
 import android.os.Looper
 import kotlin.collections.ArrayList

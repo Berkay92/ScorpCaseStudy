@@ -1,0 +1,27 @@
+<resources>
+
+    <!-- #region Standard Android Material Design dimens. -->
+    <dimen name="margin_large">32dp</dimen>
+    <dimen name="margin_big">24dp</dimen>
+    <dimen name="margin_default">16dp</dimen>
+    <dimen name="margin_medium">12dp</dimen>
+    <dimen name="margin_small">8dp</dimen>
+    <dimen name="margin_micro">4dp</dimen>
+    <!-- #endregion -->
+
+    <!-- #region Font sizes -->
+    <dimen name="nano">8dp</dimen>
+    <dimen name="micro">10dp</dimen>
+    <dimen name="caption">12dp</dimen>
+    <dimen name="body">14dp</dimen>
+    <dimen name="subheading">16dp</dimen>
+    <dimen name="title">20dp</dimen>
+    <dimen name="headline">24dp</dimen>
+    <!-- endregion -->
+
+    <!-- #region UsersFragment -->
+    <dimen name="list_item_height">60dp</dimen>
+    <dimen name="image_dimens">50dp</dimen>
+    <!-- #endregion -->
+
+</resources>
