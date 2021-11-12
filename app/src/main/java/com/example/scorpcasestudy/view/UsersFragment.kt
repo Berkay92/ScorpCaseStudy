@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
 import com.example.scorpcasestudy.R
 import com.example.scorpcasestudy.core.fragment.BaseBindingFragment
 import com.example.scorpcasestudy.databinding.UsersFragmentBinding
@@ -35,14 +36,28 @@ class UsersFragment : BaseBindingFragment<UsersFragmentBinding>() {
 
     private fun initViews() {
         peopleRecyclerView.adapter = personAdapter
+        peopleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    val offset = recyclerView.computeVerticalScrollOffset()
+                    val extent = recyclerView.computeVerticalScrollExtent()
+                    val range = recyclerView.computeVerticalScrollRange()
+                    if (offset + extent == range) {
+                        // Ready to get next part for pagination
+                        viewModel.fetchData()
+                    }
+                }
+            }
+        })
         btnRetry.setOnClickListener {
-            viewModel.fetchData()
+            viewModel.fetchData(true)
         }
     }
 
     private fun initPullToRefresh() {
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.fetchData()
+            viewModel.fetchData(true)
         }
     }
 

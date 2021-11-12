@@ -9,17 +9,29 @@ class UsersViewModel : ViewModel() {
 
     var lastResponse = MutableLiveData<List<Person>?>()
     var lastError = MutableLiveData<String>()
+    var pageReference : String? = null
+    var paginationProgress = MutableLiveData<Boolean>(false)
 
     private val dataSource = DataSource();
 
     init {
-        fetchData()
+        fetchData(true)
     }
 
-    fun fetchData() {
-        dataSource.fetch(null, completionHandler = {fetchResponse, fetchError ->
-            lastResponse.value = fetchResponse?.people
+    fun fetchData(fromScratch : Boolean = false) {
+        if(fromScratch) {
+            pageReference = null
+            lastResponse.value = null
+        } else {
+            paginationProgress.value = true
+        }
+        dataSource.fetch(pageReference, completionHandler = {fetchResponse, fetchError ->
+            val personList = lastResponse.value?.toMutableList() ?: mutableListOf()
+            fetchResponse?.people?.let { personList.addAll(it) }
+            lastResponse.value = personList
+            pageReference = fetchResponse?.next
             lastError.value = fetchError?.errorDescription
+            paginationProgress.value = false
         })
     }
 

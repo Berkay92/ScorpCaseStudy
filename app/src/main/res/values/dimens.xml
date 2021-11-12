@@ -22,6 +22,7 @@
     <!-- #region UsersFragment -->
     <dimen name="list_item_height">60dp</dimen>
     <dimen name="image_dimens">50dp</dimen>
+    <dimen name="pagination_progress_dimens">50dp</dimen>
     <!-- #endregion -->
 
 </resources>
