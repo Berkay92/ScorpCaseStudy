@@ -4,6 +4,6 @@
     <string name="preview_name" translatable="false">Berkay Türkgeldi</string>
     <string name="preview_id" translatable="false">21</string>
     <string name="preview_error_message">Error Message</string>
-    <string name="retry">Retry</string>
+    <string name="retry">Try Again</string>
 
 </resources>

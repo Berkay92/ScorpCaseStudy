@@ -13,6 +13,7 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/margin_micro"
         tools:context=".view.UsersFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -55,7 +56,8 @@
             android:id="@+id/errorView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/error_layout_margin_bottom"
             android:visibility="@{usersViewModel.lastError != null ? View.VISIBLE : View.GONE}"
             android:orientation="vertical">
 

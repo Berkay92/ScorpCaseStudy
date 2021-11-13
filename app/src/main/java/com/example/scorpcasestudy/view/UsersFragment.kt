@@ -4,12 +4,13 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.example.scorpcasestudy.R
 import com.example.scorpcasestudy.core.fragment.BaseBindingFragment
 import com.example.scorpcasestudy.databinding.UsersFragmentBinding
 import com.example.scorpcasestudy.viewmodel.UsersViewModel
 import kotlinx.android.synthetic.main.users_fragment.*
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.DividerItemDecoration.VERTICAL
 
 class UsersFragment : BaseBindingFragment<UsersFragmentBinding>() {
 
@@ -36,29 +37,24 @@ class UsersFragment : BaseBindingFragment<UsersFragmentBinding>() {
 
     private fun initViews() {
         peopleRecyclerView.adapter = personAdapter
-        peopleRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    val offset = recyclerView.computeVerticalScrollOffset()
-                    val extent = recyclerView.computeVerticalScrollExtent()
-                    val range = recyclerView.computeVerticalScrollRange()
-                    if (offset + extent == range) {
-                        // Ready to get next part for pagination
-                        viewModel.fetchData()
-                    }
-                }
+        peopleRecyclerView.addItemDecoration(DividerItemDecoration(context, VERTICAL))
+        peopleRecyclerView.addOnScrollListener(object : ScrollDirectionListener() {
+            override fun onScrollLimit() {
+                viewModel.fetchData()
             }
         })
+
         btnRetry.setOnClickListener {
-            viewModel.fetchData(true)
+
+            viewModel.fetchData()
         }
     }
 
     private fun initPullToRefresh() {
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.fetchData(true)
+            viewModel.refreshList()
         }
+
     }
 
     private fun observeData() {

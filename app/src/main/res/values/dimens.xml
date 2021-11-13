@@ -23,6 +23,7 @@
     <dimen name="list_item_height">60dp</dimen>
     <dimen name="image_dimens">50dp</dimen>
     <dimen name="pagination_progress_dimens">50dp</dimen>
+    <dimen name="error_layout_margin_bottom">200dp</dimen>
     <!-- #endregion -->
 
 </resources>

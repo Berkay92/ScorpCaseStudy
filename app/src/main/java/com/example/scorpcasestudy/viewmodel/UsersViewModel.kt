@@ -8,7 +8,7 @@ import com.example.scorpcasestudy.data.local.Person
 class UsersViewModel : ViewModel() {
 
     var lastResponse = MutableLiveData<List<Person>?>()
-    var lastError = MutableLiveData<String>()
+    var lastError = MutableLiveData<String?>()
     var pageReference : String? = null
     var paginationProgress = MutableLiveData<Boolean>(false)
 
@@ -19,21 +19,33 @@ class UsersViewModel : ViewModel() {
     }
 
     fun fetchData(fromScratch : Boolean = false) {
+        paginationProgress.value = true
+        lastError.value = null
         if(fromScratch) {
             pageReference = null
             lastResponse.value = null
-        } else {
-            paginationProgress.value = true
         }
         dataSource.fetch(pageReference, completionHandler = {fetchResponse, fetchError ->
-            val personList = lastResponse.value?.toMutableList() ?: mutableListOf()
-            fetchResponse?.people?.let { personList.addAll(it) }
-            lastResponse.value = personList
-            pageReference = fetchResponse?.next
-            lastError.value = fetchError?.errorDescription
+            fetchResponse?.let { response ->
+                lastError.value = null
+                val personList = lastResponse.value?.toMutableList() ?: mutableListOf()
+                personList.addAll(response.people)
+                val finalList = personList.distinct()
+                when (finalList.size) {
+                    0 -> lastError.value = "No item in the list, please try again"
+                    else -> lastResponse.value = finalList
+                }
+                pageReference = response.next
+            }
+            fetchError?.let { error ->
+                lastError.value = error.errorDescription
+            }
             paginationProgress.value = false
         })
     }
 
+    fun refreshList() {
+        lastResponse.value = lastResponse.value?.sortedBy { it.id }
+    }
 
 }
